@@ -326,7 +326,7 @@ defmodule PocketPetsWeb.PetLive do
     ref = socket.assigns.line_ref + 1
     socket = assign(socket, pet_line: Pet.line(socket.assigns.pet), line_ref: ref)
 
-    if System.get_env("OLLAMA_PET_LINES") in ["1", "true", "yes"] do
+    if VirtualPet.Characters.pet_lines_enabled?() do
       caller = self()
       pet = socket.assigns.pet
 

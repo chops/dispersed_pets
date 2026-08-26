@@ -124,9 +124,31 @@ defmodule PocketPets.VirtualPet.Characters do
       |> get()
       |> Map.fetch!(:character)
 
+    case pet_lines_backend() do
+      :llamacpp -> llamacpp_line(character, agent, event)
+      :ollama -> ollama_line(character, agent, event)
+      :off -> :error
+    end
+  end
+
+  def pet_lines_enabled? do
+    pet_lines_backend() != :off
+  end
+
+  defp pet_lines_backend do
+    cond do
+      System.get_env("PET_LINES_BACKEND") == "llamacpp" -> :llamacpp
+      System.get_env("PET_LINES_BACKEND") == "ollama" -> :ollama
+      System.get_env("OLLAMA_PET_LINES") in ["1", "true", "yes"] -> :ollama
+      true -> :off
+    end
+  end
+
+  defp ollama_line(character, agent, event) do
     with {:ok, %{status: 200, body: %{"message" => %{"content" => text}}}} <-
            Req.post(ollama_url(),
              json: ollama_body(character, agent, event),
+             headers: pet_line_headers(),
              receive_timeout: 1_200
            ),
          line when line != "" <- clean_line(text) do
@@ -136,8 +158,48 @@ defmodule PocketPets.VirtualPet.Characters do
     end
   end
 
+  defp llamacpp_line(character, agent, event) do
+    with {:ok, %{status: 200, body: %{"choices" => [%{"message" => %{"content" => text}} | _]}}} <-
+           Req.post(pet_lines_url(),
+             json: llamacpp_body(character, agent, event),
+             headers: pet_line_headers(),
+             receive_timeout: 1_200
+           ),
+         line when line != "" <- clean_line(text) do
+      {:ok, line}
+    else
+      _error -> :error
+    end
+  end
+
+  defp pet_lines_url do
+    System.get_env("PET_LINES_URL", "http://127.0.0.1:8080/v1/chat/completions")
+  end
+
   defp ollama_url do
     System.get_env("OLLAMA_URL", "http://127.0.0.1:11434/api/chat")
+  end
+
+  defp pet_line_headers do
+    []
+    |> maybe_bearer_auth()
+    |> maybe_basic_auth()
+  end
+
+  defp maybe_bearer_auth(headers) do
+    case System.get_env("PET_LINES_API_KEY") do
+      nil -> headers
+      "" -> headers
+      token -> [{"authorization", "Bearer #{token}"} | headers]
+    end
+  end
+
+  defp maybe_basic_auth(headers) do
+    case System.get_env("PET_LINES_BASIC_AUTH") do
+      nil -> headers
+      "" -> headers
+      credentials -> [{"authorization", "Basic #{Base.encode64(credentials)}"} | headers]
+    end
   end
 
   defp ollama_body(character, agent, event) do
@@ -145,6 +207,19 @@ defmodule PocketPets.VirtualPet.Characters do
       model: System.get_env("OLLAMA_MODEL", "qwen2.5:0.5b"),
       stream: false,
       options: %{num_predict: 24, temperature: 0.9},
+      messages: [
+        %{role: "system", content: Jido.Character.to_system_prompt(character)},
+        %{role: "user", content: ai_prompt(agent, event)}
+      ]
+    }
+  end
+
+  defp llamacpp_body(character, agent, event) do
+    %{
+      model: System.get_env("PET_LINES_MODEL", "qwen2.5-0.5b-instruct"),
+      stream: false,
+      max_tokens: 24,
+      temperature: 0.9,
       messages: [
         %{role: "system", content: Jido.Character.to_system_prompt(character)},
         %{role: "user", content: ai_prompt(agent, event)}
