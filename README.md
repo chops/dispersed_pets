@@ -2,6 +2,17 @@
 
 Phoenix LiveView Tamagotchi-style virtual pet for the Dispersed hackathon.
 
+## Local
+
+```sh
+mix setup
+mix phx.server
+```
+
+Visit `http://localhost:4000` if that port is free.
+
+## Secrets
+
 Secrets are managed with SOPS and age:
 
 ```sh
