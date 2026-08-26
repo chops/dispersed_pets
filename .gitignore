@@ -1,0 +1,25 @@
+# Build artifacts
+/_build/
+/deps/
+/cover/
+/doc/
+erl_crash.dump
+*.ez
+
+# Phoenix assets
+/priv/static/assets/
+/priv/static/cache_manifest.json
+/priv/static/**/*.gz
+/priv/static/**/*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]*.*
+/assets/node_modules/
+npm-debug.log
+
+# Local tooling
+/.devenv/
+/.direnv/
+devenv.local.nix
+
+# Local plaintext secrets
+.env
+.env.*
+!.envrc

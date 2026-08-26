@@ -1,0 +1,8 @@
+keys:
+  - &user_age age1s7ywl6tyjgnukkkmypmqcdxtrm2cdrpqusv5upvhfetv3pt2lptsj883jd
+
+creation_rules:
+  - path_regex: secrets/.*\.ya?ml$
+    key_groups:
+      - age:
+          - *user_age
