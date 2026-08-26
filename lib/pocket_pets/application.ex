@@ -11,6 +11,10 @@ defmodule PocketPets.Application do
       PocketPetsWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:pocket_pets, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: PocketPets.PubSub},
+      PocketPetsWeb.Presence,
+      PocketPets.Jido,
+      PocketPets.VirtualPet.Nursery,
+      fleet_demo_child(),
       # Start a worker by calling: PocketPets.Worker.start_link(arg)
       # {PocketPets.Worker, arg},
       # Start to serve requests, typically the last entry
@@ -21,6 +25,18 @@ defmodule PocketPets.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: PocketPets.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp fleet_demo_child do
+    if System.get_env("FLEET_DEMO") in ["1", "true", "yes"] do
+      PocketPets.FleetDemo
+    else
+      %{
+        id: :fleet_demo_disabled,
+        start: {Task, :start_link, [fn -> :ok end]},
+        restart: :temporary
+      }
+    end
   end
 
   # Tell Phoenix to update the endpoint configuration

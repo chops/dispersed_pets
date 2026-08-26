@@ -4,7 +4,7 @@ import Config
 # you can enable the server option below.
 config :pocket_pets, PocketPetsWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "jgqM++FR3eF8H69GBV7LF9bOutxGCGD4nCAHR78Q31bB9U8msXdGSMrhKcY+t0ZI",
+  secret_key_base: "3Xcu8DvmTiwCe80TIgfNwNNFUTXB6nqn6jX6QlLMRY3EZQjtPRJy80/4qlW3RRAh",
   server: false
 
 # Print only warnings and errors during test

@@ -7,7 +7,7 @@ defmodule PocketPetsWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_pocket_pets_key",
-    signing_salt: "DMI8C1zW",
+    signing_salt: "9+jW2ipX",
     same_site: "Lax"
   ]
 
@@ -34,6 +34,10 @@ defmodule PocketPetsWeb.Endpoint do
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
+
+  plug Phoenix.LiveDashboard.RequestLogger,
+    param_key: "request_logger",
+    cookie_key: "request_logger"
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]

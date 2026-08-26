@@ -19,7 +19,7 @@ config :pocket_pets, PocketPetsWeb.Endpoint,
     layout: false
   ],
   pubsub_server: PocketPets.PubSub,
-  live_view: [signing_salt: "ZRPZrqlj"]
+  live_view: [signing_salt: "DzDWQ482"]
 
 # Configure LiveView
 config :phoenix_live_view,

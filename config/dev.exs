@@ -13,7 +13,7 @@ config :pocket_pets, PocketPetsWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "F3Qe5YcaZPslZlX0KmXp0uIouGrkW7R/WyDfamRwznA3TPYVl435gPlSJSXyGiTr",
+  secret_key_base: "NNm1bnBAx/Wh+fzuJKZDTczX73Sq36qV/gMCk7nIjP6YSsSLNY8K04bBarN+tdI3",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:pocket_pets, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:pocket_pets, ~w(--watch)]}

@@ -1,0 +1,1 @@
+PocketPets.VirtualPet.Script.demo()

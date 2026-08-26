@@ -1,8 +1,8 @@
 defmodule PocketPetsWeb.PageControllerTest do
   use PocketPetsWeb.ConnCase
 
-  test "GET /", %{conn: conn} do
-    conn = get(conn, ~p"/")
-    assert html_response(conn, 200) =~ "Peace of mind from prototype to production"
+  test "GET /healthz", %{conn: conn} do
+    conn = get(conn, ~p"/healthz")
+    assert json_response(conn, 200) == %{"status" => "ok"}
   end
 end

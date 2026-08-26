@@ -18,48 +18,9 @@
   themes: false;
 }
 
-/* daisyUI theme plugin.
-  We ship with two themes, a light one inspired on Phoenix colors and a dark one inspired
-  on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
-@plugin "daisyui/packages/bundle/daisyui-theme" {
-  name: "dark";
-  default: false;
-  prefersdark: true;
-  color-scheme: "dark";
-  --color-base-100: oklch(30.33% 0.016 252.42);
-  --color-base-200: oklch(25.26% 0.014 253.1);
-  --color-base-300: oklch(20.15% 0.012 254.09);
-  --color-base-content: oklch(97.807% 0.029 256.847);
-  --color-primary: oklch(58% 0.233 277.117);
-  --color-primary-content: oklch(96% 0.018 272.314);
-  --color-secondary: oklch(58% 0.233 277.117);
-  --color-secondary-content: oklch(96% 0.018 272.314);
-  --color-accent: oklch(60% 0.25 292.717);
-  --color-accent-content: oklch(96% 0.016 293.756);
-  --color-neutral: oklch(37% 0.044 257.287);
-  --color-neutral-content: oklch(98% 0.003 247.858);
-  --color-info: oklch(58% 0.158 241.966);
-  --color-info-content: oklch(97% 0.013 236.62);
-  --color-success: oklch(60% 0.118 184.704);
-  --color-success-content: oklch(98% 0.014 180.72);
-  --color-warning: oklch(66% 0.179 58.318);
-  --color-warning-content: oklch(98% 0.022 95.277);
-  --color-error: oklch(58% 0.253 17.585);
-  --color-error-content: oklch(96% 0.015 12.422);
-  --radius-selector: 0.25rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.21875rem;
-  --size-field: 0.21875rem;
-  --border: 1.5px;
-  --depth: 1;
-  --noise: 0;
-}
-
 @plugin "daisyui/packages/bundle/daisyui-theme" {
   name: "light";
   default: true;
-  prefersdark: false;
   color-scheme: "light";
   --color-base-100: oklch(98% 0 0);
   --color-base-200: oklch(96% 0.001 286.375);
@@ -96,10 +57,1270 @@
 @custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
 @custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
 
-/* Use the data attribute for dark mode  */
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
-
 /* Make LiveView wrapper divs transparent for layout */
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+
+:root {
+  --toy-ink: #241521;
+  --toy-lcd: #9fb46b;
+  --toy-lcd-dark: #243019;
+  --toy-paper: #fff8db;
+}
+
+.toy-topbar {
+  border-bottom: 4px solid var(--toy-ink);
+  background:
+    linear-gradient(90deg, rgb(36 21 33 / 0.08) 1px, transparent 1px),
+    linear-gradient(#fff7c8, #ffe37a);
+  background-size: 18px 18px, auto;
+  color: var(--toy-ink);
+  box-shadow: 0 4px 0 rgb(36 21 33 / 0.15);
+}
+
+.toy-logo-mark {
+  border: 3px solid var(--toy-ink);
+  border-radius: 0.55rem;
+  background: #ff6fb1;
+  box-shadow: 0.18rem 0.18rem 0 var(--toy-ink);
+}
+
+.toy-logo-type {
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.pet-stage {
+  min-height: calc(100svh - 6.5rem);
+  margin: -1.5rem -1rem 0;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  color: var(--toy-ink);
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.25) 1px, transparent 1px),
+    linear-gradient(rgb(255 255 255 / 0.25) 1px, transparent 1px),
+    radial-gradient(circle at 15% 18%, #fff4a8 0 9%, transparent 9.5%),
+    radial-gradient(circle at 86% 12%, #84f1ff 0 8%, transparent 8.5%),
+    linear-gradient(135deg, #ff6fb1, #ffd44d 36%, #68e4c6 66%, #6b7cff);
+  background-size: 24px 24px, 24px 24px, auto, auto, auto;
+  font-family: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+}
+
+.pet-stage *,
+.pet-stage *::before,
+.pet-stage *::after {
+  box-sizing: border-box;
+}
+
+.skin-switch {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  max-width: 46rem;
+  margin: 0 auto 1.5rem;
+}
+
+.skin-chip {
+  min-height: 3.8rem;
+  border: 3px solid var(--toy-ink);
+  border-radius: 0.75rem;
+  padding: 0.45rem 0.65rem;
+  background: #fff8db;
+  box-shadow: 4px 4px 0 var(--toy-ink);
+  text-align: left;
+  transform: rotate(-1deg);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.skin-chip:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.skin-chip span,
+.skin-chip small {
+  display: block;
+}
+
+.skin-chip span {
+  font-size: clamp(0.85rem, 2.4vw, 1rem);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.skin-chip small {
+  margin-top: 0.15rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: rgb(36 21 33 / 0.66);
+}
+
+.skin-chip.is-active,
+.skin-chip:hover {
+  transform: translateY(2px) rotate(0);
+  box-shadow: 2px 2px 0 var(--toy-ink);
+  background: #ffec5f;
+}
+
+.pet-layout {
+  display: grid;
+  grid-template-columns: minmax(18rem, 28rem) minmax(18rem, 26rem);
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.toy-shell {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 0.78;
+  width: min(100%, 28rem);
+  margin: 0 auto;
+  padding: 4rem 3rem 3.2rem;
+  border: 5px solid var(--toy-ink);
+  border-radius: 48% 48% 42% 42% / 56% 56% 40% 40%;
+  background:
+    radial-gradient(circle at 30% 18%, rgb(255 255 255 / 0.82) 0 4%, transparent 4.5%),
+    radial-gradient(circle at 74% 32%, rgb(255 255 255 / 0.34) 0 6%, transparent 6.5%),
+    linear-gradient(145deg, var(--shell-a), var(--shell-b) 52%, var(--shell-c));
+  box-shadow:
+    inset -1rem -1.25rem 0 rgb(0 0 0 / 0.12),
+    0.8rem 0.9rem 0 var(--toy-ink);
+}
+
+.shell-shine {
+  position: absolute;
+  top: 4.2rem;
+  left: 4.4rem;
+  width: 4.2rem;
+  height: 1.2rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.55);
+  transform: rotate(-28deg);
+}
+
+.shell-speckles {
+  /* Texture belongs on the upper shell only. Below the LCD it collided with
+     the status card and the buttons, so the layer fades out before it gets
+     there. A gradient mask rather than a fixed inset, so it holds up across
+     the responsive breakpoints. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 34%, transparent 58%);
+  mask-image: linear-gradient(to bottom, #000 0 34%, transparent 58%);
+  position: absolute;
+  inset: 1.4rem;
+  opacity: 0.7;
+  background:
+    radial-gradient(circle, var(--decal-a) 0 0.28rem, transparent 0.31rem) 0 0 / 3.1rem 3.1rem,
+    radial-gradient(circle, var(--decal-b) 0 0.22rem, transparent 0.25rem) 1rem 1.4rem / 3.6rem 3.6rem;
+  pointer-events: none;
+}
+
+.toy-title {
+  position: relative;
+  margin: -0.8rem 0 0.5rem;
+  text-align: center;
+  font-size: clamp(1.15rem, 4vw, 1.75rem);
+  font-weight: 950;
+  line-height: 1;
+  text-shadow: 0.12rem 0.12rem 0 rgb(255 255 255 / 0.8);
+}
+
+.lcd-screen {
+  position: relative;
+  border: 5px solid var(--toy-ink);
+  border-radius: 1rem;
+  padding: 0.7rem;
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 0.35), transparent 36%),
+    var(--toy-lcd);
+  box-shadow:
+    inset 0 0 0 3px rgb(255 255 255 / 0.28),
+    inset 0 -0.5rem 0 rgb(0 0 0 / 0.12);
+}
+
+.lcd-icons,
+.lcd-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--toy-lcd-dark);
+}
+
+.lcd-icons {
+  margin-bottom: 0.55rem;
+}
+
+.lcd-icons span {
+  display: grid;
+  width: 1.35rem;
+  height: 1.35rem;
+  place-items: center;
+  border: 2px solid rgb(36 48 25 / 0.42);
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.lcd-playfield {
+  position: relative;
+  display: grid;
+  min-height: 13rem;
+  place-items: center;
+  overflow: hidden;
+  border: 3px solid rgb(36 48 25 / 0.55);
+  background:
+    linear-gradient(90deg, rgb(36 48 25 / 0.08) 1px, transparent 1px),
+    linear-gradient(rgb(36 48 25 / 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 22% 74%, rgb(36 48 25 / 0.12) 0 0.55rem, transparent 0.6rem),
+    radial-gradient(circle at 72% 72%, rgb(36 48 25 / 0.12) 0 0.65rem, transparent 0.7rem),
+    rgb(177 196 113 / 0.58);
+  background-size: 14px 14px, 14px 14px, auto, auto, auto;
+}
+
+.pixel-sprite {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.8rem;
+  animation: tama-bob 1.1s steps(2, end) infinite;
+}
+
+.pixel-row {
+  display: flex;
+  gap: 0.18rem;
+}
+
+.pixel-cell {
+  width: clamp(0.78rem, 2.6vw, 1.1rem);
+  aspect-ratio: 1;
+}
+
+.pixel-cell.is-on {
+  background: var(--toy-lcd-dark);
+  box-shadow: 0.12rem 0.12rem 0 rgb(36 48 25 / 0.22);
+}
+
+.pixel-shadow {
+  position: absolute;
+  bottom: 1.8rem;
+  width: 6.5rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: rgb(36 48 25 / 0.18);
+}
+
+.lcd-footer {
+  margin-top: 0.55rem;
+}
+
+.abc-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+.toy-button {
+  display: grid;
+  min-height: 4.7rem;
+  place-items: center;
+  border: 4px solid var(--toy-ink);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--button-a) 42%, var(--button-b));
+  box-shadow: 0 0.42rem 0 var(--toy-ink);
+  font-weight: 950;
+}
+
+.toy-button:active {
+  transform: translateY(0.35rem);
+  box-shadow: 0 0.08rem 0 var(--toy-ink);
+}
+
+.toy-button span {
+  font-size: 1.35rem;
+}
+
+.toy-button strong {
+  margin-top: -0.6rem;
+  font-size: 0.75rem;
+}
+
+.care-panel {
+  border: 4px solid var(--toy-ink);
+  border-radius: 1.2rem;
+  padding: 1rem;
+  background: var(--panel-bg);
+  box-shadow: 0.55rem 0.55rem 0 var(--toy-ink);
+}
+
+
+
+.status-grid:first-child {
+  margin-top: 0;
+}
+
+.status-grid {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.status-row {
+  border: 3px solid var(--toy-ink);
+  border-radius: 0.65rem;
+  padding: 0.75rem;
+  background: rgb(255 255 255 / 0.7);
+}
+
+.status-label,
+.heart-row,
+.mini-log {
+  display: flex;
+  align-items: center;
+}
+
+.status-label {
+  justify-content: space-between;
+  gap: 0.7rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.status-icon {
+  position: relative;
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--toy-ink);
+  background: var(--toy-lcd);
+}
+
+.status-meal::before,
+.status-game::before,
+.status-lamp::before {
+  position: absolute;
+  inset: 0.18rem;
+  background: var(--toy-ink);
+  content: "";
+}
+
+.status-meal::before {
+  clip-path: polygon(20% 0, 38% 0, 38% 100%, 20% 100%, 20% 48%, 10% 48%, 10% 0, 16% 0, 16% 48%, 20% 48%);
+}
+
+.status-game::before {
+  clip-path: polygon(15% 30%, 85% 30%, 85% 70%, 15% 70%);
+}
+
+.status-lamp::before {
+  clip-path: polygon(50% 0, 85% 34%, 66% 68%, 66% 100%, 34% 100%, 34% 68%, 15% 34%);
+}
+
+.pixel-meter {
+  height: 1rem;
+  margin-top: 0.55rem;
+  border: 3px solid var(--toy-ink);
+  background: repeating-linear-gradient(90deg, #fff 0 0.7rem, #f0e6d0 0.7rem 0.88rem);
+}
+
+.pixel-meter span {
+  display: block;
+  width: var(--fill);
+  height: 100%;
+  background: repeating-linear-gradient(90deg, var(--meter-a) 0 0.7rem, var(--meter-b) 0.7rem 0.88rem);
+}
+
+.heart-row {
+  gap: 0.3rem;
+  margin-top: 0.55rem;
+}
+
+.heart-bit {
+  width: 1rem;
+  height: 1rem;
+  background: #e5ddc0;
+  clip-path: polygon(50% 90%, 10% 50%, 10% 20%, 35% 10%, 50% 28%, 65% 10%, 90% 20%, 90% 50%);
+}
+
+.heart-bit.full {
+  background: #ff3f86;
+}
+
+.pet-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.pet-token {
+  min-height: 2.6rem;
+  border: 3px solid var(--toy-ink);
+  border-radius: 0.55rem;
+  background: #fff;
+  box-shadow: 0.2rem 0.2rem 0 var(--toy-ink);
+  font-size: 0.85rem;
+  font-weight: 950;
+}
+
+.pet-token.is-active,
+.pet-token:hover {
+  background: #ffec5f;
+}
+
+.mini-log {
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.mini-log span {
+  flex: 1;
+  border: 2px solid var(--toy-ink);
+  border-radius: 0.35rem;
+  background: var(--toy-lcd);
+  padding: 0.32rem 0.25rem;
+  text-align: center;
+  font-family: Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.version-preview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  max-width: 64rem;
+  margin: 1.5rem auto 0;
+}
+
+.version-preview div {
+  border: 3px dashed rgb(36 21 33 / 0.7);
+  border-radius: 0.65rem;
+  padding: 0.75rem;
+  background: rgb(255 255 255 / 0.58);
+}
+
+.version-preview strong,
+.version-preview span {
+  display: block;
+}
+
+.version-preview strong {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.version-preview span {
+  margin-top: 0.1rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.pet-skin-shell {
+  --shell-a: #ff7eb8;
+  --shell-b: #ffdc58;
+  --shell-c: #69ddff;
+  --decal-a: #6d45ff;
+  --decal-b: #34ca84;
+  --button-a: #ff75a6;
+  --button-b: #d83475;
+  --panel-bg: #8af0ff;
+  --meter-a: #ff5c9d;
+  --meter-b: #ff9ec2;
+}
+
+.pet-skin-lcd {
+  --shell-a: #d8d2bf;
+  --shell-b: #adb0a0;
+  --shell-c: #7d8475;
+  --decal-a: #222;
+  --decal-b: #6dff8f;
+  --button-a: #d9e1d1;
+  --button-b: #8b927f;
+  --panel-bg: #d2e6b5;
+  --meter-a: #36452a;
+  --meter-b: #566b38;
+  background:
+    linear-gradient(90deg, rgb(0 0 0 / 0.08) 1px, transparent 1px),
+    linear-gradient(rgb(0 0 0 / 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 12% 12%, #ff5b5b 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 88% 20%, #4cff6b 0 0.35rem, transparent 0.4rem),
+    #b8c4aa;
+  background-size: 18px 18px, 18px 18px, auto, auto, auto;
+}
+
+.pet-skin-lcd .toy-shell {
+  border-radius: 1.3rem;
+  aspect-ratio: 0.86;
+}
+
+.pet-skin-lcd .shell-speckles {
+  background:
+    linear-gradient(90deg, transparent 0 42%, rgb(36 21 33 / 0.28) 42% 46%, transparent 46% 100%) 0 0 / 3.4rem 3.4rem,
+    linear-gradient(rgb(36 21 33 / 0.2) 0 0.18rem, transparent 0.18rem 100%) 0 0 / 3.4rem 3.4rem;
+}
+
+.pet-skin-sticker {
+  --shell-a: #b56cff;
+  --shell-b: #ff84d8;
+  --shell-c: #fff052;
+  --decal-a: #00f0ff;
+  --decal-b: #ff5a36;
+  --button-a: #81ff68;
+  --button-b: #29b847;
+  --panel-bg: #ffe8fb;
+  --meter-a: #6847ff;
+  --meter-b: #a790ff;
+  background:
+    radial-gradient(circle at 10% 16%, #fff 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 18% 38%, #ff4e9b 0 0.55rem, transparent 0.6rem),
+    radial-gradient(circle at 80% 14%, #ffe54c 0 0.7rem, transparent 0.76rem),
+    radial-gradient(circle at 88% 72%, #6ff2ff 0 0.75rem, transparent 0.8rem),
+    linear-gradient(135deg, #ff93d0, #72e7ff 45%, #fff06b);
+}
+
+.pet-skin-sticker .toy-shell {
+  transform: rotate(-1.5deg);
+}
+
+.pet-skin-sticker .care-panel {
+  transform: rotate(1.2deg);
+}
+
+@keyframes tama-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-0.55rem);
+  }
+}
+
+@media (max-width: 860px) {
+  .pet-stage {
+    margin-top: -1rem;
+    padding: 0.8rem;
+  }
+
+  .pet-layout,
+  .version-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .skin-switch {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .skin-chip {
+    min-height: 3.2rem;
+    padding: 0.4rem;
+    box-shadow: 0.2rem 0.2rem 0 var(--toy-ink);
+  }
+
+  .skin-chip span {
+    font-size: 0.76rem;
+  }
+
+  .skin-chip small {
+    font-size: 0.62rem;
+  }
+
+  .toy-shell {
+    width: min(100%, 23rem);
+    max-width: 23rem;
+    padding: 4.4rem 2rem 2.5rem;
+  }
+
+}
+
+@media (max-width: 520px) {
+  .skin-switch {
+    grid-template-columns: 1fr;
+  }
+
+  .toy-shell {
+    padding-inline: 1.15rem;
+  }
+
+  .abc-buttons {
+    gap: 0.55rem;
+  }
+}
+
+/* Sticker Town: toy-first visuals with a readable care dashboard. */
+:root {
+  --lcd-field: #a2ae8e;
+  --lcd-ghost: #96a382;
+  --lcd-ink: #23291a;
+}
+
+.toy-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  min-height: 4.8rem;
+  border-bottom: 5px solid #241521;
+  background:
+    radial-gradient(circle at 12% 22%, #fff 0 0.32rem, transparent 0.38rem),
+    radial-gradient(circle at 78% 28%, #00f0ff 0 0.42rem, transparent 0.5rem),
+    radial-gradient(circle at 90% 72%, #ff5a36 0 0.36rem, transparent 0.43rem),
+    repeating-linear-gradient(135deg, #ffef63 0 18px, #70f2d2 18px 35px, #ff7fb7 35px 52px);
+  color: #241521;
+  box-shadow: 0 0.35rem 0 rgb(36 21 33 / 0.18);
+  font-family: "Silkscreen", "Andale Mono", Monaco, Consolas, monospace;
+  -webkit-font-smoothing: none;
+}
+
+.toy-topbar .toy-logo-mark {
+  border: 4px solid #241521;
+  border-radius: 0.55rem;
+  background: radial-gradient(circle at 35% 30%, #fff, #ff7fb7 48%, #b56cff);
+  box-shadow: 0.22rem 0.22rem 0 #241521;
+}
+
+.toy-topbar .toy-logo-type {
+  padding: 0.32rem 0.55rem;
+  border: 4px solid #241521;
+  border-radius: 0.6rem;
+  background: #fff8d8;
+  box-shadow: 0.22rem 0.22rem 0 #241521;
+  color: #241521;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.pet-stage {
+  min-height: calc(100svh - 4.8rem);
+  margin: -1.5rem -1rem;
+  padding: clamp(0.85rem, 3vw, 2.4rem);
+  display: grid;
+  align-content: center;
+  color: #241521;
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.32) 1px, transparent 1px),
+    linear-gradient(rgb(255 255 255 / 0.24) 1px, transparent 1px),
+    repeating-linear-gradient(135deg, #ffef63 0 18px, #ffef63 18px 35px, #70f2d2 35px 52px, #ff7fb7 52px 70px);
+  background-size: 22px 22px, 22px 22px, auto;
+  font-family: "Silkscreen", "Andale Mono", Monaco, Consolas, monospace;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+.splash-stage {
+  min-height: calc(100svh - 4.8rem);
+  margin: -1.5rem -1rem;
+  padding: clamp(1rem, 4vw, 3rem);
+  display: grid;
+  place-items: center;
+  color: #241521;
+  background:
+    radial-gradient(circle at 9% 14%, #fff 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 17% 36%, #ff4e9b 0 0.55rem, transparent 0.6rem),
+    radial-gradient(circle at 80% 12%, #ffe54c 0 0.7rem, transparent 0.76rem),
+    radial-gradient(circle at 88% 72%, #6ff2ff 0 0.75rem, transparent 0.8rem),
+    linear-gradient(135deg, #ff93d0, #72e7ff 45%, #fff06b);
+  font-family: "Silkscreen", "Andale Mono", Monaco, Consolas, monospace;
+  -webkit-font-smoothing: none;
+}
+
+.splash-hero {
+  display: grid;
+  grid-template-columns: minmax(18rem, 1fr) minmax(17rem, 30rem);
+  gap: clamp(1rem, 4vw, 2.4rem);
+  width: min(100%, 66rem);
+  align-items: center;
+}
+
+.splash-copy h1 {
+  max-width: 8ch;
+  margin: 0;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+  text-shadow: 0.16em 0.16em 0 rgb(255 255 255 / 0.5);
+}
+
+.splash-copy p {
+  width: min(100%, 28rem);
+  margin: 1rem 0 0;
+  border: 4px solid #241521;
+  border-radius: 0.8rem;
+  padding: 0.85rem 1rem;
+  background: #fff8d8;
+  box-shadow: 0.32rem 0.32rem 0 #241521;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.splash-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.splash-count {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.65rem;
+  border: 4px solid #241521;
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  background: #81ff68;
+  box-shadow: 0.24rem 0.24rem 0 #241521;
+  text-transform: uppercase;
+}
+
+.splash-count.is-dead {
+  border-color: #1a0a11;
+  background: #3a1220;
+  box-shadow: 0.24rem 0.24rem 0 #1a0a11;
+  color: #f2dfe4;
+}
+
+.splash-count strong {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.splash-count span {
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.demo-link {
+  display: inline-block;
+  margin-top: 1rem;
+  border: 3px solid #241521;
+  border-radius: 999px;
+  padding: 0.5rem 0.85rem;
+  background: #ffec5f;
+  box-shadow: 0.2rem 0.2rem 0 #241521;
+  color: #241521;
+  font-size: 0.85rem;
+  font-weight: 900;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.qr-card {
+  display: grid;
+  gap: 0.7rem;
+  justify-items: center;
+  border: 5px solid #241521;
+  border-radius: 1rem;
+  padding: clamp(0.8rem, 3vw, 1.1rem);
+  background: #fff8d8;
+  box-shadow: 0.65rem 0.65rem 0 #241521;
+}
+
+.qr-card svg {
+  display: block;
+  width: min(100%, 26rem);
+  height: auto;
+}
+
+.qr-card span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.colorway-switch {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 auto 1rem;
+}
+
+.color-chip {
+  min-height: 2rem;
+  border: 3px solid #241521;
+  border-radius: 999px;
+  padding: 0 0.8rem;
+  background: #fff6c6;
+  box-shadow: 3px 3px 0 #241521;
+  font-size: 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.color-chip.is-active {
+  transform: translateY(2px);
+  box-shadow: 1px 1px 0 #241521;
+  background: var(--chip-active);
+}
+
+.pet-layout {
+  display: grid;
+  grid-template-columns: minmax(17rem, 29rem);
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+.toy-shell {
+  position: relative;
+  width: min(100%, 29rem);
+  aspect-ratio: 0.78;
+  margin: 0 auto;
+  padding: clamp(3.25rem, 9vw, 4.25rem) clamp(1.25rem, 7vw, 3.1rem) 2.65rem;
+  border: 5px solid #241521;
+  border-radius: 48% 48% 43% 43% / 57% 57% 39% 39%;
+  background:
+    radial-gradient(circle at 30% 17%, rgb(255 255 255 / 0.8) 0 1.2rem, transparent 1.3rem),
+    repeating-linear-gradient(32deg, transparent 0 17px, rgb(255 255 255 / 0.2) 17px 23px),
+    linear-gradient(145deg, var(--shell-a), var(--shell-b) 53%, var(--shell-c));
+  box-shadow:
+    inset -1.2rem -1.35rem 0 rgb(0 0 0 / 0.13),
+    0.85rem 0.95rem 0 #241521;
+}
+
+.pet-colorway-pink {
+  --shell-a: #ff79b3;
+  --shell-b: #ffd454;
+  --shell-c: #61dff0;
+  --button-a: #ff5e99;
+  --button-b: #d72f74;
+  --chip-active: #ff8cc3;
+}
+
+.pet-colorway-teal {
+  --shell-a: rgb(98 239 217 / 0.86);
+  --shell-b: rgb(112 214 255 / 0.78);
+  --shell-c: rgb(120 121 255 / 0.82);
+  --button-a: #fff06b;
+  --button-b: #e3b827;
+  --chip-active: #6df3d9;
+}
+
+.pet-colorway-grape {
+  --shell-a: #b26cff;
+  --shell-b: #ff8fe7;
+  --shell-c: #fff35e;
+  --button-a: #78ff78;
+  --button-b: #2dbb49;
+  --chip-active: #c18bff;
+}
+
+.pet-stage.pet-colorway-sticker {
+  --shell-a: #b56cff;
+  --shell-b: #ff84d8;
+  --shell-c: #fff052;
+  --button-a: #81ff68;
+  --button-b: #29b847;
+  --chip-active: #ffec5f;
+  background:
+    radial-gradient(circle at 9% 14%, #fff 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 17% 36%, #ff4e9b 0 0.55rem, transparent 0.6rem),
+    radial-gradient(circle at 80% 12%, #ffe54c 0 0.7rem, transparent 0.76rem),
+    radial-gradient(circle at 88% 72%, #6ff2ff 0 0.75rem, transparent 0.8rem),
+    radial-gradient(circle at 28% 78%, #72ff72 0 0.55rem, transparent 0.62rem),
+    linear-gradient(135deg, #ff93d0, #72e7ff 45%, #fff06b);
+}
+
+.pet-colorway-sticker .toy-shell {
+  transform: rotate(-1.5deg);
+  background:
+    radial-gradient(circle at 18% 16%, #fff 0 0.82rem, transparent 0.9rem),
+    radial-gradient(circle at 78% 21%, #00f0ff 0 0.48rem, transparent 0.55rem),
+    radial-gradient(circle at 28% 82%, #ff5a36 0 0.62rem, transparent 0.7rem),
+    repeating-linear-gradient(32deg, transparent 0 17px, rgb(255 255 255 / 0.22) 17px 23px),
+    linear-gradient(145deg, var(--shell-a), var(--shell-b) 52%, var(--shell-c));
+}
+
+.pet-colorway-sticker .shell-speckles {
+  opacity: 0.82;
+  background:
+    radial-gradient(circle, #00f0ff 0 0.28rem, transparent 0.31rem) 0 0 / 3.1rem 3.1rem,
+    radial-gradient(circle, #ff5a36 0 0.22rem, transparent 0.25rem) 1rem 1.4rem / 3.6rem 3.6rem,
+    radial-gradient(circle, #fff 0 0.18rem, transparent 0.22rem) 0.5rem 0.7rem / 2.2rem 2.2rem;
+}
+
+.pet-colorway-sticker {
+  --panel-bg: #ffe8fb;
+  --meter-a: #6847ff;
+  --meter-b: #a790ff;
+}
+
+.shell-shine {
+  top: 4.25rem;
+  left: 4.3rem;
+  width: 4.25rem;
+  height: 1rem;
+}
+
+.shell-speckles {
+  /* Texture belongs on the upper shell only. Below the LCD it collided with
+     the status card and the buttons, so the layer fades out before it gets
+     there. A gradient mask rather than a fixed inset, so it holds up across
+     the responsive breakpoints. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 34%, transparent 58%);
+  mask-image: linear-gradient(to bottom, #000 0 34%, transparent 58%);
+  inset: 1.6rem;
+  opacity: 0.55;
+  background:
+    radial-gradient(circle, #241521 0 2px, transparent 3px) 0 0 / 2.2rem 2.2rem,
+    radial-gradient(circle, #fffdf0 0 2px, transparent 3px) 0.9rem 1.2rem / 2.8rem 2.8rem;
+}
+
+.lcd-screen {
+  border: 5px solid #241521;
+  border-radius: 1rem;
+  padding: 0.65rem;
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 0.28), transparent 34%),
+    var(--lcd-field);
+  box-shadow:
+    inset 0 0 0 3px rgb(255 255 255 / 0.28),
+    inset 0 -0.45rem 0 rgb(0 0 0 / 0.13);
+}
+
+.lcd-icons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem;
+  margin: 0 0 0.45rem;
+  color: var(--lcd-ink);
+}
+
+.lcd-icons + .lcd-icons {
+  margin: 0.45rem 0 0.55rem;
+}
+
+.lcd-icons .care-icon {
+  display: grid;
+  width: 100%;
+  height: 1.28rem;
+  place-items: center;
+  border: 2px solid rgb(35 41 26 / 0.55);
+  border-radius: 0;
+  background: rgb(35 41 26 / 0.05);
+  color: rgb(35 41 26 / 0.72);
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.lcd-icons .care-icon.is-selected {
+  background: var(--lcd-ink);
+  color: var(--lcd-field);
+  box-shadow: 0 0 0 2px rgb(35 41 26 / 0.2);
+}
+
+.lcd-playfield {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  aspect-ratio: 32 / 20;
+  place-items: stretch;
+  overflow: hidden;
+  border: 3px solid rgb(35 41 26 / 0.62);
+  background: var(--lcd-field);
+}
+
+.lcd-pixel-grid {
+  display: grid;
+  grid-template-columns: repeat(32, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  gap: 1px;
+  width: 100%;
+  height: 100%;
+  padding: 0.35rem;
+}
+
+.lcd-pixel {
+  display: block;
+  background: var(--lcd-ghost);
+}
+
+.lcd-pixel.is-on {
+  background: var(--lcd-ink);
+}
+
+.heart-bit {
+  width: 1rem;
+  height: 1rem;
+  background: var(--lcd-ghost);
+  clip-path: polygon(50% 90%, 10% 50%, 10% 20%, 35% 10%, 50% 28%, 65% 10%, 90% 20%, 90% 50%);
+}
+
+.heart-bit.full {
+  background: var(--lcd-ink);
+}
+
+.lcd-footer {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.5rem;
+  margin-top: 0.45rem;
+  color: var(--lcd-ink);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.pet-voice {
+  min-height: 2.6rem;
+  margin: 0.9rem auto 0;
+  border: 3px solid #241521;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.65rem;
+  background: #fff8d8;
+  box-shadow: 4px 4px 0 #241521;
+  color: #241521;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.abc-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.55rem, 4vw, 1.15rem);
+  margin-top: 1.25rem;
+}
+
+.toy-button {
+  display: grid;
+  min-height: clamp(3.4rem, 12vw, 4.75rem);
+  place-items: center;
+  border: 4px solid #241521;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--button-a) 42%, var(--button-b));
+  box-shadow: 0 0.42rem 0 #241521;
+  color: #241521;
+  cursor: pointer;
+}
+
+.toy-button:active {
+  transform: translateY(0.35rem);
+  box-shadow: 0 0.08rem 0 #241521;
+}
+
+.toy-button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.45);
+  opacity: 0.58;
+}
+
+.toy-button:disabled:active {
+  transform: none;
+  box-shadow: 0 0.42rem 0 #241521;
+}
+
+.toy-button strong {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.toy-button span {
+  margin-top: -0.25rem;
+  font-size: 8px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.toy-button.emoji-button span {
+  margin-top: 0;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: clamp(1.8rem, 7vw, 2.7rem);
+  line-height: 1;
+  text-transform: none;
+}
+
+.revive-button {
+  display: block;
+  width: min(100%, 16rem);
+  margin: 1rem auto 0;
+  border: 4px solid #241521;
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  background: #81ff68;
+  box-shadow: 0.28rem 0.28rem 0 #241521;
+  color: #241521;
+  font-size: 16px;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.revive-button:active {
+  transform: translateY(0.22rem);
+  box-shadow: 0.06rem 0.06rem 0 #241521;
+}
+
+.pet-colorway-sticker .pet-layout {
+  grid-template-columns: minmax(17rem, 29rem) minmax(17rem, 24rem);
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.pet-colorway-sticker .care-panel {
+  border: 4px solid #241521;
+  border-radius: 1rem;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 12% 18%, #fff 0 0.35rem, transparent 0.4rem),
+    radial-gradient(circle at 88% 26%, #6ff2ff 0 0.5rem, transparent 0.58rem),
+    var(--panel-bg);
+  box-shadow: 0.55rem 0.55rem 0 #241521;
+  transform: rotate(1.2deg);
+}
+
+
+.pet-colorway-sticker .status-grid:first-child {
+  margin-top: 0;
+}
+
+.status-grid {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.pet-colorway-sticker .status-row {
+  border: 3px solid #241521;
+  border-radius: 0.65rem;
+  padding: 0.75rem;
+  background: rgb(255 255 255 / 0.74);
+}
+
+.pet-colorway-sticker .status-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pet-colorway-sticker .pixel-meter {
+  height: 1rem;
+  margin-top: 0.55rem;
+  border: 3px solid #241521;
+  background: repeating-linear-gradient(90deg, #fff 0 0.7rem, #f0e6d0 0.7rem 0.88rem);
+}
+
+.pet-colorway-sticker .pixel-meter span {
+  display: block;
+  width: var(--fill);
+  height: 100%;
+  background: repeating-linear-gradient(90deg, var(--meter-a) 0 0.7rem, var(--meter-b) 0.7rem 0.88rem);
+}
+
+.pet-colorway-sticker .heart-row {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.55rem;
+}
+
+.pet-colorway-sticker .heart-row .heart-bit {
+  background: #e5ddc0;
+}
+
+.pet-colorway-sticker .heart-row .heart-bit.full {
+  background: #ff3f86;
+}
+
+.pet-token {
+  min-height: 2.5rem;
+  border: 3px solid #241521;
+  border-radius: 0.55rem;
+  background: #fff;
+  box-shadow: 0.2rem 0.2rem 0 #241521;
+  color: #241521;
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pet-token.is-active,
+.pet-token:hover,
+.pet-token:focus-visible {
+  background: #ffec5f;
+}
+
+.pet-colorway-sticker .pet-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 520px) {
+  .splash-stage {
+    margin: -1.5rem -1rem;
+    padding: 0.85rem;
+  }
+
+  .splash-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .splash-copy h1 {
+    max-width: none;
+    font-size: clamp(2.8rem, 18vw, 4.4rem);
+  }
+
+  .qr-card {
+    box-shadow: 0.35rem 0.35rem 0 #241521;
+  }
+
+  .pet-stage {
+    min-height: 100svh;
+    margin: -1.5rem -1rem;
+    padding: 0.75rem;
+  }
+
+  .colorway-switch {
+    gap: 0.35rem;
+  }
+
+  .color-chip {
+    padding: 0 0.55rem;
+  }
+
+  .toy-shell {
+    width: min(100%, 23rem);
+    padding: 3.25rem 1.15rem 2.35rem;
+    box-shadow:
+      inset -0.8rem -1rem 0 rgb(0 0 0 / 0.13),
+      0.45rem 0.55rem 0 #241521;
+  }
+
+  .lcd-footer,
+  .lcd-icons .care-icon,
+  .color-chip {
+    font-size: 8px;
+  }
+
+  .pet-voice {
+    font-size: 16px;
+  }
+
+  .pet-colorway-sticker .pet-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-colorway-sticker .care-panel {
+    transform: rotate(0);
+  }
+}

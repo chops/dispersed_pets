@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+
+cd -P -- "$(dirname -- "$0")"
+
+if [ "${START_CLOUDFLARED:-false}" = "true" ]; then
+  cloudflared tunnel --url "http://127.0.0.1:${PORT:-4000}" --no-autoupdate &
+fi
+
+PHX_SERVER=true exec ./pocket_pets start
