@@ -149,7 +149,7 @@ defmodule PocketPets.VirtualPet.Characters do
            Req.post(ollama_url(),
              json: ollama_body(character, agent, event),
              headers: pet_line_headers(),
-             receive_timeout: 1_200
+             receive_timeout: pet_lines_timeout()
            ),
          line when line != "" <- clean_line(text) do
       {:ok, line}
@@ -163,7 +163,7 @@ defmodule PocketPets.VirtualPet.Characters do
            Req.post(pet_lines_url(),
              json: llamacpp_body(character, agent, event),
              headers: pet_line_headers(),
-             receive_timeout: 1_200
+             receive_timeout: pet_lines_timeout()
            ),
          line when line != "" <- clean_line(text) do
       {:ok, line}
@@ -174,6 +174,12 @@ defmodule PocketPets.VirtualPet.Characters do
 
   defp pet_lines_url do
     System.get_env("PET_LINES_URL", "http://127.0.0.1:8080/v1/chat/completions")
+  end
+
+  defp pet_lines_timeout do
+    "PET_LINES_TIMEOUT_MS"
+    |> System.get_env("3000")
+    |> String.to_integer()
   end
 
   defp ollama_url do
