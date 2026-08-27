@@ -6,6 +6,7 @@ defmodule PocketPets.Dispersed.Client do
   alias PocketPets.Dispersed.Auth
 
   @base_url "https://api.dispersed.com"
+  @default_receive_timeout 120_000
 
   def batch_job(params) do
     timeout_ms = Map.fetch!(params, :max_timeout_run_ms)
@@ -41,8 +42,14 @@ defmodule PocketPets.Dispersed.Client do
     Req.post(base_url <> path,
       body: Auth.canonical_body(body),
       headers: headers,
-      receive_timeout: 30_000
+      receive_timeout: receive_timeout(opts)
     )
+  end
+
+  defp receive_timeout(opts) do
+    Keyword.get(opts, :receive_timeout) ||
+      System.get_env("DISPERSED_API_TIMEOUT_MS", "#{@default_receive_timeout}")
+      |> String.to_integer()
   end
 
   defp job_base(params) do
